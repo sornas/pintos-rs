@@ -12,5 +12,6 @@ libpintos.a:
 
 clean:
 	cargo clean
+	rm -f libpintos.a
 
 .PHONY: all clean debug release libpintos.a
