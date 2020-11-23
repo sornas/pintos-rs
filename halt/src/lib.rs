@@ -1,8 +1,7 @@
 #![no_std]
-#![no_main]
-#![feature(start)]
 //#![feature(asm)]
-//#![link_args = "-L -lmain"]
+//#![feature(link_args)]
+//#![link_args = "-L -lpintos"]
 
 #[panic_handler]
 fn panic(_info: &core::panic::PanicInfo) -> ! {
@@ -10,7 +9,7 @@ fn panic(_info: &core::panic::PanicInfo) -> ! {
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn main() {
+pub unsafe extern "C" fn entry() {
     exit(0x69);
 }
 
@@ -18,9 +17,3 @@ pub unsafe extern "C" fn main() {
 extern {
     fn exit(status: i32);
 }
-
-//#[no_mangle]
-//#[start]
-//unsafe extern "C" fn _start() {
-//    exit(main());
-//}
