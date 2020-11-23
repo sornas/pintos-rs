@@ -53,7 +53,7 @@ libc.a: $(LIB_OBJ)
 	ranlib $@
 
 librust.a:
-	make -C $(LIBDIR_RUST) all
+	make -C $(LIBDIR_RUST) debug
 	cp $(LIBDIR_RUST)/target/debug/librust.a $@
 
 clean::
