@@ -23,7 +23,8 @@ lib/user_SRC += lib/user/console.c	# Console code.
 
 LIB_OBJ = $(patsubst %.c,%.o,$(patsubst %.S,%.o,$(lib_SRC) $(lib/user_SRC)))
 LIB_DEP = $(patsubst %.o,%.d,$(LIB_OBJ))
-LIB = lib/user/entry.o libc.a librust.a
+LIB = lib/user/entry.o libc.a
+LIB_RUST = $(LIB) librust.a
 
 LIBDIR_RUST = $(SRCDIR)/../rust
 
@@ -39,11 +40,12 @@ lib/user/syscall.o: CPPFLAGS += -fno-omit-frame-pointer
 
 define TEMPLATE
 $(1)_OBJ = $(patsubst %.c,%.o,$(patsubst %.S,%.o,$($(1)_SRC)))
-$(1): $$($(1)_OBJ) $$(LIB) $$(LDSCRIPT)
-	$$(CC) $$(LDFLAGS) $$($(1)_OBJ) $$(LIB) -o $$@
+$(1): $$($(1)_OBJ) $(2) $$(LDSCRIPT)
+	$$(CC) $$(LDFLAGS) $$($(1)_OBJ) $(2) -o $$@
 endef
 
-$(foreach prog,$(PROGS),$(eval $(call TEMPLATE,$(prog))))
+$(foreach prog,$(PROGS),$(eval $(call TEMPLATE,$(prog),$(LIB))))
+$(foreach prog,$(PROGS_RUST),$(eval $(call TEMPLATE,$(prog),$(LIB_RUST))))
 
 libc.a: $(LIB_OBJ)
 	rm -f $@

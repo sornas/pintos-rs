@@ -3,13 +3,16 @@ SRCDIR = ..
 # Test programs to compile, and a list of sources for each.
 # To add a new test, put its name on the PROGS list
 # and then add a name_SRC line that lists its source files.
-PROGS = cat cmp cp echo halt hex-dump ls mcat mcp mkdir pwd rm shell \
-	bubsort insult lineup matmult recursor \
-	sumargv pfs pfs_reader pfs_writer dummy longrun \
-	child parent generic_parent longrun_interactive busy \
-	line_echo file_syscall_tests longrun_nowait shellcode \
-	crack overflow dir_stress create_file create_remove_file \
-	rust
+PROGS_C = cat cmp cp echo halt hex-dump ls mcat mcp mkdir pwd rm shell \
+	  bubsort insult lineup matmult recursor \
+	  sumargv pfs pfs_reader pfs_writer dummy longrun \
+	  child parent generic_parent longrun_interactive busy \
+	  line_echo file_syscall_tests longrun_nowait shellcode \
+	  crack overflow dir_stress create_file create_remove_file
+
+PROGS_RUST = rust
+
+PROGS = $(PROGS_C) $(PROGS_RUST)
 
 rust_SRC = rust.c
 
