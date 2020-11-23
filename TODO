@@ -1,10 +1,3 @@
-1: Hijacka deras Makefiler så de bygger rust, kopierar rust FFI och länkar.
-Deras Makefiler fungerar uppenbarligen och koden borde kunna anropa rust FFI utan problem.
-
-2: Anropa deras libc från Rust, men börja med att typ returnera en int.
-
-3: userprog/rust.c som skickar allt till rust.
-
 4: build.rs som hanterar hela bygg-grejen.
 
 .
@@ -12,8 +5,3 @@ Deras Makefiler fungerar uppenbarligen och koden borde kunna anropa rust FFI uta
 .
 
 99: i686-unknown-pintos
-
-rust.h:
-int rust_main(int argc, char **argv);
-
-Haltar via exit i entry.c

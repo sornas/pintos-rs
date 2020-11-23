@@ -25,6 +25,8 @@ LIB_OBJ = $(patsubst %.c,%.o,$(patsubst %.S,%.o,$(lib_SRC) $(lib/user_SRC)))
 LIB_DEP = $(patsubst %.o,%.d,$(LIB_OBJ))
 LIB = lib/user/entry.o libc.a librust.a
 
+LIBDIR_RUST = $(SRCDIR)/../rust
+
 PROGS_SRC = $(foreach prog,$(PROGS),$($(prog)_SRC))
 PROGS_OBJ = $(patsubst %.c,%.o,$(patsubst %.S,%.o,$(PROGS_SRC)))
 PROGS_DEP = $(patsubst %.o,%.d,$(PROGS_OBJ))
@@ -49,13 +51,14 @@ libc.a: $(LIB_OBJ)
 	ranlib $@
 
 librust.a:
-	make -C $(SRCDIR)/../halt all
-	cp $(SRCDIR)/../rust/target/debug/librust.a $@
+	make -C $(LIBDIR_RUST) all
+	cp $(LIBDIR_RUST)/target/debug/librust.a $@
 
 clean::
 	rm -f $(PROGS) $(PROGS_OBJ) $(PROGS_DEP)
+	make -C $(LIBDIR_RUST) clean
 	rm -f $(LIB_DEP) $(LIB_OBJ) lib/user/entry.[do] libc.a librust.a
 
-.PHONY: all clean
+.PHONY: all clean librust.a
 
 -include $(LIB_DEP) $(PROGS_DEP)
