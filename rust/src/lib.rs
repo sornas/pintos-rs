@@ -1,7 +1,4 @@
 #![no_std]
-//#![feature(asm)]
-//#![feature(link_args)]
-//#![link_args = "-L -lpintos"]
 
 #[panic_handler]
 fn panic(_info: &core::panic::PanicInfo) -> ! {
