@@ -78,7 +78,7 @@ DEPENDS = $(patsubst %.o,%.d,$(OBJECTS))
 threads/kernel.lds.s: CPPFLAGS += -P
 threads/kernel.lds.s: threads/kernel.lds.S threads/loader.h
 
-LIBDIR_RUST = $(SRCDIR)/../kernel
+LIBDIR_RUST = $(SRCDIR)/../kernel-rs
 
 LIB_RUST = libkernel-rs.a
 
