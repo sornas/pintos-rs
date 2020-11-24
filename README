@@ -1,18 +1,26 @@
-This repo contains a modified version of Pintos in which you can write user
-programs, standard library, syscalls and kernel code in Rust and C at the
+This repo contains a modified version [0] of Pintos [1] in which you can write
+user programs, standard library, syscalls and kernel code in Rust and C at the
 same time.
+
+This README focuses on the Rust parts. [0] and [1] contain information about
+Pintos in general.
+
+[0]: https://www.ida.liu.se/~TDIU16/2020/info/courseinfo.sv.shtml
+[1]: https://web.stanford.edu/class/cs140/projects/pintos/pintos.html
 
 Kernel
 ------
 
-The Rust kernel code is located in kernel-rs/.
+The Rust kernel code is located in kernel-rs/. This is compiled and linked with
+the normal kernel before being packaged into `os.dsk`.
 
 Standard library
 ----------------
 
 The Rust standard library is located in libpintos-rs/. This crate isn't compiled
 to a static library. Instead, user programs depend on this crate and let Cargo
-link them together.
+link them together. This means that the standard library doesn't need to `extern
+"C"` its functions.
 
 User programs
 -------------
@@ -35,6 +43,6 @@ TODO
 
 * Merge the C and Rust kernel like we already do with the standard library.
 * Automatically copy libc.a when building libpintos-rs (via build.rs?).
-* println!-macro with formatting in libpintos-rs.
+* println!-macro with formatting in libpintos-rs (and kernel?).
 * Implement an allocator that calls malloc in libpintos-rs.
 * Some sort of Cargo template for setting up new user programs.
