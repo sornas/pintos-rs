@@ -1,0 +1,40 @@
+This repo contains a modified version of Pintos in which you can write user
+programs, standard library, syscalls and kernel code in Rust and C at the
+same time.
+
+Kernel
+------
+
+The Rust kernel code is located in kernel-rs/.
+
+Standard library
+----------------
+
+The Rust standard library is located in libpintos-rs/. This crate isn't compiled
+to a static library. Instead, user programs depend on this crate and let Cargo
+link them together.
+
+User programs
+-------------
+
+User programs can be located anywhere you want. halt-rs/ is included as an
+example. The only requirement is that they are compiled as static libraries with
+no_std and a `pub extern "C" entry()` that acts as the entry point.
+
+In order for the Pintos Makefile to build your program you need to add the
+binary's name to PROGS_RS and its crate path to $(BINARY)_SRC in
+`src/examples/Makefile`. haltrs is included as an example.
+
+The binaries are rather large, even with LTO enabled. halt-rs compiles to 4.3M
+in debug and 1.6M with --release and LTO. This isn't an issue (at least not yet)
+as the final binary when linked by the Pintos Makefile is 48k, compared with the
+mostly equivalent halt.c that compiles to 42k.
+
+TODO
+----
+
+* Merge the C and Rust kernel like we already do with the standard library.
+* Automatically copy libc.a when building libpintos-rs (via build.rs?).
+* println!-macro with formatting in libpintos-rs.
+* Implement an allocator that calls malloc in libpintos-rs.
+* Some sort of Cargo template for setting up new user programs.
