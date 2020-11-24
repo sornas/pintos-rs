@@ -7,7 +7,7 @@ fn panic(_info: &core::panic::PanicInfo) -> ! {
 
 #[no_mangle]
 pub unsafe extern "C" fn syscall_handler() {
-    printf("c suger lmao xd\n".as_ptr());
+    printf("c suger lmao xd %d\n".as_ptr(), 69);
     thread_exit();
 }
 
