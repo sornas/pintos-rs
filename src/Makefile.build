@@ -86,6 +86,8 @@ $(LIB_RUST):
 	make -C $(LIBDIR_RUST) debug
 	cp $(LIBDIR_RUST)/target/debug/libkernel.a $@
 
+.PHONY: $(LIB_RUST)
+
 kernel.o: threads/kernel.lds.s $(OBJECTS) $(LIB_RUST)
 	$(LD) -T $< -o $@ $(OBJECTS) $(LIB_RUST)
 
