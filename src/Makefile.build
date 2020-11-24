@@ -83,7 +83,7 @@ LIBDIR_RUST = $(SRCDIR)/../kernel
 LIB_RUST = libkernel-rs.a
 
 $(LIB_RUST):
-	make -C $(LIBDIR_RUST) debug
+	(cd $(LIBDIR_RUST) && cargo build)
 	cp $(LIBDIR_RUST)/target/debug/libkernel.a $@
 
 .PHONY: $(LIB_RUST)
@@ -106,7 +106,7 @@ os.dsk: loader.bin kernel.bin
 	cat $^ > $@
 
 clean::
-	make -C $(LIBDIR_RUST) clean
+	(cd $(LIBDIR_RUST) && cargo clean)
 	rm -f $(OBJECTS) $(DEPENDS) 
 	rm -f threads/loader.o threads/kernel.lds.s threads/loader.d
 	rm -f kernel.o kernel.lds.s

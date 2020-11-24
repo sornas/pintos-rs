@@ -5,7 +5,7 @@ authors = ["Gustav Sörnäs <gustav@sornas.net>"]
 edition = "2018"
 
 [lib]
-name = "rust"
+name = "haltrs"
 crate-type = ["staticlib"]
 
 [profile.dev]
@@ -18,3 +18,6 @@ panic = "abort"
 version = "0.2"
 default-features = false
 features = ["extra_traits"]
+
+[dependencies.libpintos]
+path = "../libpintos-rs"

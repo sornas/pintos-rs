@@ -1,5 +1,7 @@
 #![no_std]
 
+use libpintos::exit;
+
 #[panic_handler]
 fn panic(_info: &core::panic::PanicInfo) -> ! {
     loop {}
@@ -8,9 +10,4 @@ fn panic(_info: &core::panic::PanicInfo) -> ! {
 #[no_mangle]
 pub unsafe extern "C" fn entry() {
     exit(0x69);
-}
-
-#[link(name="pintos", kind="static")]
-extern {
-    fn exit(status: i32);
 }
