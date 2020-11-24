@@ -41,21 +41,21 @@ const int argc[] = {
   0
 };
 
-static void
-syscall_handler (struct intr_frame *f) 
-{
-  int32_t* esp = (int32_t*)f->esp;
-  
-  switch ( 0 /* retrive syscall number */ )
-  {
-    default:
-    {
-      printf ("Executed an unknown system call!\n");
-      
-      printf ("Stack top + 0: %d\n", esp[0]);
-      printf ("Stack top + 1: %d\n", esp[1]);
-      
-      thread_exit ();
-    }
-  }
-}
+//static void
+//syscall_handler (struct intr_frame *f) 
+//{
+//  int32_t* esp = (int32_t*)f->esp;
+//  
+//  switch ( 0 /* retrive syscall number */ )
+//  {
+//    default:
+//    {
+//      printf ("Executed an unknown system call!\n");
+//      
+//      printf ("Stack top + 0: %d\n", esp[0]);
+//      printf ("Stack top + 1: %d\n", esp[1]);
+//      
+//      thread_exit ();
+//    }
+//  }
+//}

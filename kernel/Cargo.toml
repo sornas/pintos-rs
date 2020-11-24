@@ -1,0 +1,22 @@
+[package]
+name = "kernel"
+version = "0.1.0"
+authors = ["Gustav Sörnäs <gustav@sornas.net>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "kernel"
+crate-type = ["staticlib"]
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+
+[dependencies.libc]
+version = "0.2"
+default-features = false
+features = ["extra_traits"]

@@ -78,8 +78,16 @@ DEPENDS = $(patsubst %.o,%.d,$(OBJECTS))
 threads/kernel.lds.s: CPPFLAGS += -P
 threads/kernel.lds.s: threads/kernel.lds.S threads/loader.h
 
-kernel.o: threads/kernel.lds.s $(OBJECTS) 
-	$(LD) -T $< -o $@ $(OBJECTS)
+LIBDIR_RUST = $(SRCDIR)/../kernel
+
+LIB_RUST = libkernel-rs.a
+
+$(LIB_RUST):
+	make -C $(LIBDIR_RUST) debug
+	cp $(LIBDIR_RUST)/target/debug/libkernel.a $@
+
+kernel.o: threads/kernel.lds.s $(OBJECTS) $(LIB_RUST)
+	$(LD) -T $< -o $@ $(OBJECTS) $(LIB_RUST)
 
 kernel.bin: kernel.o
 	$(OBJCOPY) -O binary -R .note -R .comment -S $< $@.tmp
@@ -96,6 +104,7 @@ os.dsk: loader.bin kernel.bin
 	cat $^ > $@
 
 clean::
+	make -C $(LIBDIR_RUST) clean
 	rm -f $(OBJECTS) $(DEPENDS) 
 	rm -f threads/loader.o threads/kernel.lds.s threads/loader.d
 	rm -f kernel.o kernel.lds.s
