@@ -56,6 +56,8 @@ lib$(1).a:
 .PHONY: lib$(1).a
 $(1): rust.o lib$(1).a $$(LIB_RUST) $$(LDSCRIPT)
 	$$(CC) $$(LDFLAGS) $$(LIB_ENTRY) rust.o lib$(1).a -o $$@
+clean::
+	(cd $$($(1)_SRC) && cargo clean)
 endef
 
 $(foreach prog,$(PROGS),$(eval $(call TEMPLATE,$(prog))))
@@ -67,7 +69,7 @@ libc.a: $(LIB_OBJ)
 	ranlib $@
 
 clean::
-	rm -f $(PROGS) $(PROGS_OBJ) $(PROGS_DEP)
+	rm -f $(PROGS) $(PROGS_RS) $(PROGS_OBJ) rust.o $(PROGS_DEP) rust.d
 	rm -f $(LIB_DEP) $(LIB_OBJ) lib/user/entry.[do] libc.a
 
 .PHONY: all clean
