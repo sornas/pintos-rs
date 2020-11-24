@@ -9,5 +9,5 @@ fn panic(_info: &core::panic::PanicInfo) -> ! {
 
 #[no_mangle]
 pub unsafe extern "C" fn entry() {
-    exit(0x69);
+    exit(0x42);
 }
